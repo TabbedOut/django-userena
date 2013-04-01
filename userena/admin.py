@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.admin.sites import AlreadyRegistered
 from django.utils.translation import ugettext as _
 from guardian.admin import GuardedModelAdmin
 
@@ -16,6 +17,13 @@ class UserenaAdmin(UserAdmin, GuardedModelAdmin):
                     'is_staff', 'is_active', 'date_joined')
     list_filter = ('is_staff', 'is_superuser', 'is_active')
 
-admin.site.unregister(get_user_model())
-admin.site.register(get_user_model(), UserenaAdmin)
-admin.site.register(get_profile_model())
+	
+try:
+	admin.site.register(get_user_model(), UserenaAdmin)
+except AlreadyRegistered:
+	pass
+
+try:
+	admin.site.register(get_profile_model())
+except AlreadyRegistered:
+	pass
