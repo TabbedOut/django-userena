@@ -56,7 +56,8 @@ class ProfileListView(ListView):
 
         if userena_settings.USERENA_DISABLE_PROFILE_LIST \
            and not self.request.user.is_staff:
-            raise Http404
+            return redirect(reverse('userena_profile_detail', kwargs={'username': self.request.user.username}))
+            #raise Http404
 
         if not self.extra_context: self.extra_context = dict()
 
