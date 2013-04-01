@@ -244,7 +244,10 @@ class UserenaBaseProfile(models.Model):
         permissions = PROFILE_PERMISSIONS
 
     def __unicode__(self):
-        return 'Profile of %(username)s' % {'username': self.user.username}
+        if self.user:	
+            return 'Profile of %(username)s' % {'username': self.user.username}
+        else:
+            return 'Profile of Unknown User'
 
     def get_mugshot_url(self):
         """
